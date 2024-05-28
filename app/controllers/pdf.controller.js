@@ -68,10 +68,10 @@ export function generatePdf(req, res) {
 
           const html = result;
 
-          const browser = await puppeteer.launch({ headless: false });
+          const browser = await puppeteer.launch({ headless: 'shell' });
           const page = await browser.newPage();
           await page.setContent(html);
-          const buffer = await page.pdf({ format: 'A6' });
+          const buffer = await page.pdf({ width: '2.125in', height: '3.375in' });
           await browser.close();
 
           res.status(200).json({ data: buffer.toString('base64') });
